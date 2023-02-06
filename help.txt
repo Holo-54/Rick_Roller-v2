@@ -1,0 +1,11 @@
+**Commands:**
+!d<# of sides>  -  Rolls a dice with the specified number of sides 
+!<# of dice>d<# of sides>  -  Rolls multiple of the same dice specified 
+
+**Examples:** 
+!d20  -  Rolls a d20 
+!4d6  -  Rolls 4 d6 
+
+*Note: Rick will only roll valid DND dice (100, 20, 12, 10, 8, 6, and 4 sided die). Any requests for other dice rolls will result in no response.* 
+*Note 2: When rolling multiple dice, Rick is set to only roll 1-9 of that dice. Please be nice and don\'t ask for more than that :)*
+*Note 3: If you start a message with '!' and enter an invalid command, expect a friendly message*
