@@ -1,11 +1,7 @@
 **Commands:**
-/roll <# of sides>  -  Rolls a dice with the specified number of sides 
-/multi_roll <# of sides> <# of dice> -  Rolls multiple of the same dice specified 
-
-**Examples:** 
-/roll 20  -  Rolls a d20 
-/mutli_roll 6 4  -  Rolls 4 d6
+/roll -  Rolls a dice with the specified number of sides 
+/multi_roll -  Rolls multiple of the same dice specified 
+/wrangler_protocol - Wrangles a specified user
+    *Requires special permission to execute*
 
 Each command will have prompts built in to make things easier
-
-*Note: Rick will only roll valid DND dice (100, 20, 12, 10, 8, 6, and 4 sided die) 
