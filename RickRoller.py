@@ -26,7 +26,10 @@ a.close()
 
 # wrangler protocol users
 w = open('./Wrangler_Protocol_Users.txt','r')
-wranglers = w.readlines()
+unique_ids = w.readlines()
+wranglers = []
+for wrangler in unique_ids:
+    wranglers.append(int(wrangler.strip('\n')))
 w.close()
 
 # response list
@@ -35,6 +38,7 @@ responses = b.readlines()
 bot_response = []
 for response in responses:
     bot_response.append(response.strip('\n'))
+b.close()
 
 # types of dice
 die_sides = [4, 6, 8, 10, 12, 20, 100]
@@ -91,25 +95,25 @@ async def m_roll(interaction: discord.Interaction, die: Choice[int], number_of_d
     mroll=multi_roll(die.name,number_of_dice)
     await interaction.response.send_message(f'You rolled: {number_of_dice} D{die.name}\nHere are your rolls:\n{mroll}\n**Grand total: {total_roll}**')
 
-# wrangler protocol -- WORK IN PROGRESS
-# @tree.command(name="wrangler_protocol",description="Annoy the living hell out of someone until they respond")
-# @app_commands.describe(poor_soul="@ of poor soul to be wrangled")
-# async def wrangler_protocol(interaction: discord.Interaction, poor_soul: discord.Member):
-#     if interaction.user in wranglers:
-#         await interaction.response.send_message('Commencing Protocol: Wrangle')
-#         while True:
-#             for i in range(5):
-#                 await interaction.channel.send(f'{poor_soul} This won\'t stop until someone says stop')
-#             def check(m):
-#                 return m.content.lower() == 'stop' and m.channel == interaction.channel
-#             try:
-#                 await client.wait_for('message', check=check, timeout=45)
-#                 await interaction.channel.send('oke')
-#                 break
-#             except asyncio.TimeoutError:
-#                 await interaction.channel.send('Still nothing...')
-#     else:
-#         await interaction.response.send_message(f'You aren\'t my superior! Only {interaction.user} is')
+# wrangler protocol
+@tree.command(name="wrangler_protocol",description="Annoy the living hell out of someone until they respond")
+@app_commands.describe(poor_soul="@ of poor soul to be wrangled")
+async def wrangler_protocol(interaction: discord.Interaction, poor_soul: discord.Member):
+    if interaction.user.id in wranglers:
+        await interaction.response.send_message('Commencing Protocol: Wrangle')
+        while True:
+            for i in range(5):
+                await interaction.channel.send(f'{poor_soul.mention} This won\'t stop until someone says stop')
+            def check(m):
+                return m.content.lower() == 'stop' and m.channel == interaction.channel
+            try:
+                await client.wait_for('message', check=check, timeout=45)
+                await interaction.channel.send('oke')
+                break
+            except asyncio.TimeoutError:
+                await interaction.channel.send('Still nothing...')
+    else:
+        await interaction.response.send_message(f'You aren\'t my superior!')
 
 @client.event
 async def on_message(message):
