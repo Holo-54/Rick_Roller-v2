@@ -1,7 +1,7 @@
 **Commands:**
-/roll -  Rolls a dice with the specified number of sides 
-/multi_roll -  Rolls multiple of the same dice specified 
-/wrangler_protocol - Wrangles a specified user
+`/roll` -  Rolls a dice with the specified number of sides 
+`/multi_roll` -  Rolls multiple of the same dice specified 
+`/wrangler_protocol` - Wrangles a specified user
     *Requires special permission to execute*
 
 Each command will have prompts built in to make things easier
