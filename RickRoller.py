@@ -102,7 +102,7 @@ async def wrangler_protocol(interaction: discord.Interaction, poor_soul: discord
     if interaction.user.id in wranglers:
         await interaction.response.send_message('Commencing Protocol: Wrangle')
         while True:
-            for i in range(5):
+            for i in range(4):
                 await interaction.channel.send(f'{poor_soul.mention} This won\'t stop until someone says stop')
             def check(m):
                 return m.content.lower() == 'stop' and m.channel == interaction.channel
