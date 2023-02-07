@@ -130,6 +130,7 @@ async def on_message(message):
 @client.event
 async def on_ready():
     await tree.sync()
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='for /rick_help'))
     print('Ready to roll!')
 
 
