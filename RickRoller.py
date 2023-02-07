@@ -115,6 +115,11 @@ async def wrangler_protocol(interaction: discord.Interaction, poor_soul: discord
     else:
         await interaction.response.send_message(f'You aren\'t my superior!')
 
+# help page
+@tree.command(name="rick_help", description="Get some help with Rick Roller")
+async def rick_help(interaction: discord.Interaction):
+    await interaction.response.send_message(help_txt)
+
 @client.event
 async def on_message(message):
     print('{0.channel.id} Message from {0.author}: {0.content}'.format(message))
