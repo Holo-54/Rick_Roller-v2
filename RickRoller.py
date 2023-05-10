@@ -65,7 +65,7 @@ def multi_roll(sides, num_dice):
 
 # basic roll
 @tree.command(name="roll", description="A basic dice roll")
-@app_commands.describe(die="Type of dice")
+@app_commands.describe(die="Type of dice", modifier="Modifier")
 @app_commands.choices(die=[
     Choice(name=4, value=1),
     Choice(name=6, value=2),
@@ -75,9 +75,10 @@ def multi_roll(sides, num_dice):
     Choice(name=20, value=6),
     Choice(name=100, value=7)
 ])
-async def roll(interaction: discord.Interaction, die: Choice[int]):
+async def roll(interaction: discord.Interaction, die: Choice[int], modifier: int=0):
     simple_roll = roll_dice(die.name)
-    await interaction.response.send_message(f'D{die.name}: You rolled **{simple_roll}**!')
+    total_roll = simple_roll + modifier
+    await interaction.response.send_message(f'D{die.name} + {modifier}: You rolled ({simple_roll} + {modifier}) = **{total_roll}**!')
 
 # multi roll
 @tree.command(name="multi_roll",description="Roll multiple dice")
