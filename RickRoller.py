@@ -82,7 +82,7 @@ async def roll(interaction: discord.Interaction, die: Choice[int], modifier: int
 
 # multi roll
 @tree.command(name="multi_roll",description="Roll multiple dice")
-@app_commands.describe(die="Type of dice",number_of_dice="Number of dice")
+@app_commands.describe(die="Type of dice",number_of_dice="Number of dice", modifier="Modifier")
 @app_commands.choices(die=[
     Choice(name=4, value=1),
     Choice(name=6, value=2),
@@ -92,9 +92,10 @@ async def roll(interaction: discord.Interaction, die: Choice[int], modifier: int
     Choice(name=20, value=6),
     Choice(name=100, value=7)
 ])
-async def m_roll(interaction: discord.Interaction, die: Choice[int], number_of_dice: int):
+async def m_roll(interaction: discord.Interaction, die: Choice[int], number_of_dice: int, modifier: int=0):
     mroll=multi_roll(die.name,number_of_dice)
-    await interaction.response.send_message(f'You rolled: {number_of_dice} D{die.name}\nHere are your rolls:\n{mroll}\n**Grand total: {total_roll}**')
+    grand_total = total_roll + modifier
+    await interaction.response.send_message(f'You rolled: {number_of_dice} D{die.name}\nHere are your rolls:\n{mroll}\nTotal: {total_roll}\n**Grand Total: {total_roll} + {modifier} = {grand_total}**')
 
 # wrangler protocol
 @tree.command(name="wrangler_protocol",description="Annoy the living hell out of someone until they respond")
