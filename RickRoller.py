@@ -145,7 +145,7 @@ async def custom_roll(interaction: discord.Interaction,
         mroll3=multi_roll(die3.name,third_num)
         sum3=sum(mroll3)
         custom_total=sum1+sum2+sum3
-        embed_message.add_field(name=f"{third_num} D{die3.name}", value=f"{mroll3} = {sum3}", inline=False)
+        embed_message.add_field(name=f"__{third_num} D{die3.name}__", value=f"{mroll3} = {sum3}", inline=False)
     else:
         custom_total=sum1+sum2
     embed_message.add_field(name="__Grand Total__", value=custom_total)
