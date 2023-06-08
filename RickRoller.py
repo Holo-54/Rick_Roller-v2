@@ -97,6 +97,60 @@ async def m_roll(interaction: discord.Interaction, die: Choice[int], number_of_d
     grand_total = total_roll + modifier
     await interaction.response.send_message(f'You rolled: {number_of_dice} D{die.name}\nHere are your rolls:\n{mroll}\nTotal: {total_roll}\n**Grand Total: {total_roll} + {modifier} = {grand_total}**')
 
+# custom roll
+@tree.command(name="custom_roll",description="Multiple multi rolls at once")
+@app_commands.describe(die1="First type of dice",first_num="Number of first dice",
+                       die2="Second type of dice",second_num="Number of second dice",
+                       die3="Third type of dice",third_num="Number of third dice",)
+@app_commands.choices(
+die1=[
+    Choice(name=4, value=1),
+    Choice(name=6, value=2),
+    Choice(name=8, value=3),
+    Choice(name=10, value=4),
+    Choice(name=12, value=5),
+    Choice(name=20, value=6),
+    Choice(name=100, value=7)
+],
+die2=[
+    Choice(name=4, value=1),
+    Choice(name=6, value=2),
+    Choice(name=8, value=3),
+    Choice(name=10, value=4),
+    Choice(name=12, value=5),
+    Choice(name=20, value=6),
+    Choice(name=100, value=7)
+],
+die3=[
+    Choice(name=4, value=1),
+    Choice(name=6, value=2),
+    Choice(name=8, value=3),
+    Choice(name=10, value=4),
+    Choice(name=12, value=5),
+    Choice(name=20, value=6),
+    Choice(name=100, value=7)
+])
+async def custom_roll(interaction: discord.Interaction,
+                      die1: Choice[int], first_num: int,
+                      die2: Choice[int], second_num: int,
+                      die3: Choice[int]=0, third_num: int=0):
+    mroll1=multi_roll(die1.name,first_num)
+    mroll2=multi_roll(die2.name,second_num)
+    sum1=sum(mroll1)
+    sum2=sum(mroll2)
+    embed_message=discord.Embed(title="**Custom Roll**",colour=discord.Colour.blue())
+    embed_message.add_field(name=f"__{first_num} D{die1.name}__", value=f"{mroll1} = {sum1}", inline=False)
+    embed_message.add_field(name=f"__{second_num} D{die2.name}__", value=f"{mroll2} = {sum2}", inline=False)
+    if die3!=0:
+        mroll3=multi_roll(die3.name,third_num)
+        sum3=sum(mroll3)
+        custom_total=sum1+sum2+sum3
+        embed_message.add_field(name=f"{third_num} D{die3.name}", value=f"{mroll3} = {sum3}", inline=False)
+    else:
+        custom_total=sum1+sum2
+    embed_message.add_field(name="__Grand Total__", value=custom_total)
+    await interaction.response.send_message(embed=embed_message)
+
 # wrangler protocol
 @tree.command(name="wrangler_protocol",description="Annoy the living hell out of someone until they respond")
 @app_commands.describe(poor_soul="@ of poor soul to be wrangled")
